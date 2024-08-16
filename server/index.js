@@ -23,33 +23,47 @@ app.use((req, res, next) => {
 });
 
 app.get("/api/history", async (req, res) => {
-  let historyList = await db.getHistory();
-  if (!historyList.length) {
-    await db.initializeHistory();
-    historyList = await db.getHistory();
+  try {
+    let historyList = await db.getHistory();
+    if (!historyList.length) {
+      await db.initializeHistory();
+      historyList = await db.getHistory();
+    }
+    res.status(200).json(historyList);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
-  res.json(historyList);
 });
 
 app.get("/api/project", async (req, res) => {
-  let projectList = await db.getProjects();
-  if (!projectList.length) {
-    await db.initializeProjects();
-    projectList = await db.getProjects();
+  try {
+    let projectList = await db.getProjects();
+    if (!projectList.length) {
+      await db.initializeProjects();
+      projectList = await db.getProjects();
+    }
+    res.status(200).json(projectList);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
-  res.json(projectList);
 });
 
 app.get("/api/skills", async (req, res) => {
-  let skillsList = await db.getSkills();
-  if (!skillsList.length) {
-    await db.initializeSkills();
-    skillsList = await db.getSkills();
+  try {
+    let skillsList = await db.getSkills();
+    if (!skillsList.length) {
+      await db.initializeSkills();
+      skillsList = await db.getSkills();
+    }
+    res.status(200).json(skillsList);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
-  res.json(skillsList);
 });
 
 app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}`);
 });
-

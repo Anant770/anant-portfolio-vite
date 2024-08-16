@@ -10,7 +10,7 @@ export const Experience = () => {
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const response = await fetch("http://localhost:8888/api/skills");
+        const response = await fetch("/api/skills");
         if (!response.ok) {
           throw new Error("Failed to fetch skills data");
         }
